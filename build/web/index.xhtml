@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>SMS GÖNDER</title>
+        <h:outputStylesheet library="css" name="sb-admin.css"/>
+
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+            <a class="navbar-brand mr-1" href="index.html">Buraya İsim ve Logo</a>
+
+            <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+
+
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul class="sidebar navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.xhtml">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>SMS GÖNDER</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="musteriler.xhtml">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>MÜŞTERİLER</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="gruplar.xhtml">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>GRUPLAR</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logIn.xhtml" data-toggle="modal" data-target="#logoutModal" >
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>ÇIKIŞ</span></a>
+                </li>
+            </ul>
+
+            <div id="content-wrapper">
+
+                <div class="container-fluid">
+
+
+
+
+
+                    <!-- DataTables Example -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-table"></i>
+                            SMS GÖNDER</div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <h:form>
+                                    <h:inputTextarea style="width: 50%; height: 200px;" id="mesaj" onkeyup="sayac(this)" value="#{verimor.mesaj}"  />
+                                    <p id="karakter"></p>
+                                    <script>
+                                        function sayac(element) {
+                                            "use strict";
+                                              var mesaj = element;
+                                              var karakter = document.getElementById("karakter");
+
+                                              var karakterSiniri = 140;
+
+                                              mesaj.onkeyup = karakterKontrol;
+                                              mesaj.onkeydown = karakterKontrol;
+
+                                              function karakterKontrol() {
+                                                    var mesajUzunluk = this.value.length;
+
+                                                    if (karakterSiniri >= mesajUzunluk) {
+                                                          var kalan = mesajUzunluk;
+                                                          karakter.innerHTML = kalan + "/140";
+
+                                                    } else {
+                                                          this.value = this.value.substr(0, karakterSiniri);
+                                                    }
+                                              }
+                                        }
+                                    </script>
+                                    <br/><br/><br/><br/>
+                                    
+                                    <h:outputLabel for="musterigrup" value="Müşteri Grubu"/>
+                                    <h:selectOneMenu class="form-control" style="width: 25%" value="#{verimor.grupAdi}" >
+                                        <f:selectItem itemLabel="Grup Seçin" />
+                                        <f:selectItems value="#{grupBean.glist}" var="gad" itemLabel="#{gad.grupAdi}" itemValue="#{gad.grupAdi}"  ></f:selectItems>
+                                    </h:selectOneMenu>
+                                    <h:commandButton type="submit" class="btn btn-primary btn-block" value="GÖNDER" style="margin-top: 10px; width: 25%;" action="sms?faces-redirect=true" />
+                                    
+                                    
+                               
+                                </h:form>
+                            </div>
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+                <!-- Sticky Footer -->
+          <!--       <footer class="sticky-footer">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright © Your Website 2019</span>
+                        </div>
+                    </div>
+                </footer>-->
+
+            </div>
+            <!-- /.content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="logoutModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">                                    ************BURAYI KONTROL ET ÇIKIŞ BUTONU İÇİN*******************
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.Xhtml">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

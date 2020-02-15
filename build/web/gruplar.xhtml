@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>SMS GÖNDER - GRUPLAR</title>
+        <h:outputStylesheet library="css" name="sb-admin.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"></link>
+
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+            <a class="navbar-brand mr-1" href="index.html">Buraya İsim ve Logo</a>
+
+            <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+
+
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul class="sidebar navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.xhtml">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>SMS GÖNDER</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="musteriler.xhtml">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>MÜŞTERİLER</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="gruplar.xhtml">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>GRUPLAR</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logIn.xhtml" data-toggle="modal" data-target="#logoutModal" >
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>ÇIKIŞ</span></a>
+                </li>
+            </ul>
+
+            <div id="content-wrapper">
+
+                <div class="container-fluid">
+
+
+
+
+
+                    <!-- DataTables Example -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-table"></i>
+                            GRUPLAR</div>
+                        <div class="card-body">
+
+                            <div class="col-xl-8 col-sm-12 mb-3" style="margin-left: 10px; width: 40%; float: left">
+                                <h:form>
+                                    <h:inputHidden value="#{grupBean.grup.grupId}"/>
+                                    <h:outputLabel for="grupad" value="Grup Adı"/>
+                                    <h:inputText id="grupad" class="form-control" required="true" requiredMessage="*Lütfen bu alanı doldurunuz" style="width: 100%" value="#{grupBean.grup.grupAdi}" />
+                                    <h:message for="grupad" errorStyle="color:red"/><br/>
+                                    <h:commandButton type="submit" class="btn btn-primary btn-block" value="Kaydet" style="margin-top: 10px; float: left; width: 25%" action="#{grupBean.kaydet()}" />
+                                    <h:commandButton type="submit" class="btn btn-warning btn-block " value="Güncelle" style="float: left; margin-top: 10px; margin-left: 5px; width: 25%" action="#{grupBean.guncelle()}" />
+                                </h:form>
+
+
+                            </div>
+
+                            
+                                <div class="col-xl-8 col-sm-12 mb-3" style="margin-left: 10px; width: 50%; float: left; margin-left: 100px;">
+                                    <h:form prependId="false">
+
+                                    <div class="table-responsive" >
+                                        
+
+                                        <h:dataTable value="#{grupBean.glist}" class="table table-bordered" var="grp" id="data"  style="width:500px;">
+                                            <h:column>
+                                                <f:facet name="header">Grup Id</f:facet>
+                                                    #{grp.grupId}
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Grup Adı</f:facet>
+                                                <h:commandLink action="#{grupBean.formguncelle(grp)}" value="#{grp.grupAdi}"/>
+                                                    
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Sil</f:facet>
+                                               
+                                                <h:commandButton type="submit" class="btn btn-sm btn-danger" value="SİL" action="#{grupBean.sil(grp)}" onclick="return confirm('Seçtiğiniz grup silinecektir')"  />
+                                                
+                                            </h:column>
+
+                                        </h:dataTable>
+
+                                    </div>
+                                    </h:form>
+
+
+                                </div>
+                           
+
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+                <!-- Sticky Footer -->
+                <footer class="sticky-footer">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright © Your Website 2019</span>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+            <!-- /.content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+         <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
+        <script>
+
+            $(document).ready(function () {
+                $('#data').dataTable();
+            });
+
+        </script>
+    </h:body>
+</html>
+
